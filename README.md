@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧭 GitHub Compass
 
-## Getting Started
+I got the ick from guessing, so I built **GitHub Compass** — a tool that shows you what developers *actually* built.
 
-First, run the development server:
+---
+
+## What It Does
+
+Enter a GitHub username → Get the real stats.
+
+✅ **Original Repos vs. Forks** — See what they built vs. what they cloned  
+✅ **Real Language Usage** — Based only on their original projects  
+✅ **Key Metrics** — Stars, PRs, gists, and actual activity
+
+No fluff. Just signal.
+
+---
+
+## Why This Exists
+
+**The Problem:** Recruiters waste time trying to figure out if a GitHub profile is legit or just for show.
+
+**The Solution:** GitHub Compass filters out the noise and shows you what matters.
+
+**The Flex:** Built with Next.js, React, TypeScript, and GitHub API — the same tech stack you're hiring for 💅
+
+---
+
+## Quick Start
 
 ```bash
+# Clone & install
+git clone https://github.com/yourusername/github-compass.git
+cd github-compass
+npm install
+
+# Run it
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Optional: GitHub Token
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+For higher rate limits (5000/hour vs 60/hour):
 
-## Learn More
+```bash
+cp .env.local.example .env.local
+# Add your token to .env.local
+GITHUB_TOKEN=your_token_here
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Tech Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Next.js 14+** — App Router, Server Components
+- **TypeScript** — Type safety
+- **Tailwind CSS** — Styling
+- **GitHub API** — Data source
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## What Makes It Different
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**For Recruiters:**
+- No more guesswork — see original work vs. forks instantly
+- Real skills — language stats from actual code
+- Time saver — analyze profiles in seconds
+
+**For Developers:**
+- Showcase real work — your original projects highlighted
+- Fair assessment — forks don't dilute your stats
+- Clean presentation — modern, professional UI
+
+---
+
+## Links
+
+- **Live Demo:** [Coming Soon]
+
+---
+
+Made with 💙 for recruiters who deserve better tools :)
+

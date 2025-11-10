@@ -1,65 +1,110 @@
-import Image from "next/image";
+"use client"
 
-export default function Home() {
+import { useState } from 'react';
+import { GitHubProfile, GitHubRepo } from '@/types/github';
+import { fetchGitHubData } from '@/lib/github-api';
+import { SearchBar } from '@/components/SearchBar';
+import { LoadingSpinner } from '@/components/LoadingSpinner';
+import { ErrorMessage } from '@/components/ErrorMessage';
+import { UserProfileCard } from '@/components/UserProfileCard';
+import { RepoAnalysis } from '@/components/RepoAnalysis';
+
+/**
+ * Main Application Component - GitHub Compass
+ */
+export default function App() {
+  const [username, setUsername] = useState<string>('');
+  const [profile, setProfile] = useState<GitHubProfile | null>(null);
+  const [repos, setRepos] = useState<GitHubRepo[] | null>(null);
+  const [publicGistsCount, setPublicGistsCount] = useState<number>(0);
+  const [publicPRsCount, setPublicPRsCount] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+
+  /**
+   * Handles fetching GitHub data
+   */
+  const handleFetchData = async () => {
+    setLoading(true);
+    setError(null);
+    setProfile(null);
+    setRepos(null);
+
+    try {
+      const data = await fetchGitHubData(username);
+      setProfile(data.profile);
+      setRepos(data.repos);
+      setPublicGistsCount(data.publicGistsCount);
+      setPublicPRsCount(data.publicPRsCount);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  /**
+   * Handles the form submission
+   */
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleFetchData();
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="min-h-screen text-white font-sans">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* --- HEADER --- */}
+        <header className="text-center pt-20 pb-16">
+          <h1 className="text-7xl sm:text-8xl md:text-9xl font-bold text-white mb-6 tracking-tight leading-none">
+            GitHub<br />Compass
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-xl sm:text-2xl text-white/80 max-w-3xl mx-auto leading-relaxed font-light">
+            Get a simple, recruiter-friendly report from any GitHub profile.
           </p>
+        </header>
+
+        {/* --- SEARCH BAR --- */}
+        <div className="max-w-3xl mx-auto mb-20">
+          <SearchBar
+            username={username}
+            loading={loading}
+            onUsernameChange={setUsername}
+            onSubmit={handleSubmit}
+          />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* --- RESULTS AREA --- */}
+        <div className="min-h-[400px] pb-20">
+          {/* Loading State */}
+          {loading && <LoadingSpinner />}
+
+          {/* Error State */}
+          {error && <ErrorMessage message={error} />}
+
+          {/* Success State - Display Dashboard */}
+          {profile && repos && (
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <div className="lg:col-span-1">
+                <UserProfileCard 
+                  profile={profile} 
+                  publicGistsCount={publicGistsCount}
+                  publicPRsCount={publicPRsCount}
+                />
+              </div>
+              <div className="lg:col-span-2">
+                <RepoAnalysis repos={repos} />
+              </div>
+            </div>
+          )}
         </div>
-      </main>
+        
+        {/* --- FOOTER --- */}
+        <footer className="text-center pb-12 text-white/60 text-sm">
+          <p>Built to show what&apos;s under the hood, not just on the surface.</p>
+        </footer>
+      </div>
     </div>
   );
 }
