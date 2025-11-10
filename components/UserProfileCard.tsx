@@ -26,12 +26,12 @@ export const UserProfileCard = ({ profile, publicGistsCount = 0, publicPRsCount 
     </p>
     <p className="text-white/60 text-center mb-10 text-base leading-relaxed">{profile.bio || 'No bio provided.'}</p>
     
-    <div className="grid grid-cols-2 gap-4 mb-10">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-10">
       <StatBox label="Followers" value={profile.followers} />
       <StatBox label="Following" value={profile.following} />
       <StatBox label="Repos" value={profile.public_repos} />
       <StatBox label="Gists" value={publicGistsCount} />
-      <div className="col-span-2">
+      <div className="sm:col-span-2">
         <StatBox label="Public PRs" value={publicPRsCount} />
       </div>
     </div>
