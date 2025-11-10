@@ -1,0 +1,10 @@
+# Code Owners
+# These owners will be requested for review when someone opens a pull request
+
+* @KarimaTouhami
+
+# Protect specific files
+/.github/ @KarimaTouhami
+/app/api/ @KarimaTouhami
+SECURITY.md @KarimaTouhami
+.env.local.example @KarimaTouhami

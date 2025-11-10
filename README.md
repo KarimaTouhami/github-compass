@@ -75,9 +75,22 @@ GITHUB_TOKEN=your_token_here
 
 ---
 
+## Security
+
+This repo is protected with:
+- ✅ Branch protection rules
+- ✅ Automated security audits
+- ✅ Dependabot alerts
+- ✅ No secrets in code (server-side API)
+
+See [SECURITY.md](./SECURITY.md) for details.
+
+---
+
 ## Links
 
 - **Live Demo:** [Coming Soon]
+- **Protection Guide:** [REPO_PROTECTION_GUIDE.md](./REPO_PROTECTION_GUIDE.md)
 
 ---
 
