@@ -8,6 +8,7 @@ import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { ErrorMessage } from '@/components/ErrorMessage';
 import { UserProfileCard } from '@/components/UserProfileCard';
 import { RepoAnalysis } from '@/components/RepoAnalysis';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 /**
  * Main Application Component - GitHub Compass
@@ -104,6 +105,7 @@ export default function App() {
         <footer className="text-center pb-12 text-white/60 text-sm">
           <p>Built to show what&apos;s under the hood, not just on the surface.</p>
         </footer>
+        <SpeedInsights />
       </div>
     </div>
   );
