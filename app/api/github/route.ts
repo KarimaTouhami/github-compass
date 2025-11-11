@@ -51,8 +51,8 @@ export async function GET(request: Request) {
     return NextResponse.json({ 
       profileData, 
       reposData,
-      publicGistsCount, // NEW
-      publicPRsCount    // NEW
+      publicGistsCount,
+      publicPRsCount   
     });
 
   } catch (err) {
