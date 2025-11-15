@@ -1,6 +1,7 @@
 # 🧭 GitHub Compass
 
 I got the ick from guessing, so I built **GitHub Compass** — a tool that shows you what developers *actually* built.
+<img src="public/showcase.png">
 
 ---
 
