@@ -88,10 +88,7 @@ See [SECURITY.md](./SECURITY.md) for details.
 
 ---
 
-## Links
-
-- **Live Demo:** [Github Compass](https://github-compass.vercel.app)
-- **Protection Guide:** [REPO_PROTECTION_GUIDE.md](./REPO_PROTECTION_GUIDE.md)
+- **The Live Demo:** [Github Compass](https://github-compass.vercel.app)
 
 ---
 
